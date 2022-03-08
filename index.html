@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  
+  <title>Tip Calculator</title>
+
+</head>
+<body>
+  <img src="images/logo.svg" alt="logo" class="logo">
+
+  <main class="card">
+
+    <div class="bill">
+      <h1 class="bill__title">Bill</h1>
+      <div class="bill__wrapper">
+        <img src="images/icon-dollar.svg" alt="dollar">
+        <input type="number" id="cost" class="cost" placeholder="0" value="0" min="0">
+      </div>
+    </div>
+
+    <div class="tips">
+      <h1 class="tips__title">Select Tip %</h1>
+      <div class="tips__grid">
+        <button id="five" value="0.05">5%</button>
+        <button id="ten" value="0.1">10%</button>
+        <button id="fifteen" value="0.15">15%</button>
+        <button id="twentyfive" value="0.25">25%</button>
+        <button id="fifty" value="0.5">50%</button>
+        <button id="custom" class="custom" disabled>Custom</button>
+      </div>
+    </div>
+
+    <div class="people">
+      <h1 class="people__title">Number of People</h1>
+      <div class="people__wrapper">
+        <img src="images/icon-person.svg" alt="person">
+        <input type="number" id="peopleNum" class="people__num" placeholder="0" value="0" min="0">
+      </div>
+    </div>
+
+    <div class="total">
+      <div class="total__tip">
+        <div class="total__tip__left">
+          <h3>Tip Amount</h3>
+          <span>/ person</span>
+        </div>
+        <h2 id="tipTotal" class="total__tip__right">$0.00</h2>
+      </div>
+
+      <div class="total__cost">
+        <div class="total__cost__left">
+          <h3>Total</h3>
+          <span>/ person</span>
+        </div>
+        <h2 id="personTotal" class="total__cost__right">$0.00</h2>
+      </div>
+
+      <button id="reset" class="reset" disabled>Reset</button>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
