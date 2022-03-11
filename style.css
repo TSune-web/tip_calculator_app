@@ -37,7 +37,7 @@ html {
 body,
 h1,
 h2,
-h3,
+p,
 span {
     margin: 0;
     padding: 0;
@@ -86,7 +86,7 @@ main.card {
 
 h1 { color: var(--dark-cyan); }
 h2 { color: var(--strong-cyan); }
-h3 { color: var(--light-cyan); }
+p { color: var(--light-cyan); }
 input {
     color: var(--v-dark-cyan);
     background-color: var(--v-light-cyan);
@@ -167,8 +167,8 @@ input {
     font-size: 1.3rem;
 }
 
-.total__tip__left h3,
-.total__cost__left h3 {
+.total__tip__left p,
+.total__cost__left p {
     font-size: 1.6rem;
 }
 
