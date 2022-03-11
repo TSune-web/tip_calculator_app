@@ -1,44 +1,103 @@
 const bill = document.getElementById('cost');
 const peopleNum = document.getElementById('peopleNum');
 const btns = document.querySelectorAll('button');
-const tipTotal = document.getElementById('tipTotal');
+const customTip = document.getElementById('customTip');
 const resetBtn = document.getElementById('reset');
+const tipTotalResult = document.getElementById('tipTotal');
+const personTotalResult = document.getElementById('personTotal');
+
+let billAmount = 0;
+let tipAmount = 0;
+let numOfPeople = 1;
 
 
-const tips = btns.forEach(btn => {
-    let result = 0;
-    btn.addEventListener('click', function() {
-        result = this.value * bill.value;
-        return result;
-        // console.log(result)
+function calculate() {
+    if (billAmount && tipAmount && numOfPeople) {
+
+        // calculate the total bill per person
+        let billPerPerson = billAmount / numOfPeople;
+        billPerPerson = parseFloat(billPerPerson.toFixed(2));
+        
+        // calculate the total tip per person
+        let tipPerPerson = billPerPerson * tipAmount;
+        tipPerPerson = parseFloat(tipPerPerson.toFixed(2));
+        console.log(Math.floor(tipPerPerson))
+
+        // calculate the total bill
+        let totalAmount = billPerPerson + tipPerPerson;
+        
+        tipTotalResult.innerText = `$${tipPerPerson}`;
+        personTotalResult.innerText = `$${totalAmount}`;
+        resetBtn.classList.add('active');
+
+        return;
+    }
+    
+    tipTotalResult.innerText = '$0.00';
+    personTotalResult.innerText = '$0.00';
+}
+
+
+function isValidInputValue(inputVal) {
+    // if input is less than 0 in people's number, show error message
+    if (inputVal < 1) {
+        const invalidMsg = document.querySelector('.invalid-msg');
+        invalidMsg.classList.add('invalid');
+        peopleNum.classList.add('invalid');
+    } else {
+        const invalidMsg = document.querySelector('.invalid-msg');
+        invalidMsg.classList.remove('invalid');
+        peopleNum.classList.remove('invalid');
+    }
+}
+
+
+btns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        const clicked = e.target;
+        const btnEl = e.target.value;
+        tipAmount = btnEl;
+
+        clicked.classList.toggle('clicked');
+        
+        calculate();
     });
 });
-console.log(tips)
 
-// Get the total tip
-// function tipAmount() {
-//     for (let btn of btns) {
-//         btn.addEventListener('click', function() {
-//             tips = bill.value * this.value
-//             // console.log(tips)
-//         });
-//     }
-// }
+customTip.addEventListener('input', (e) => {
+    const inputValue = e.target.value;
+    const customValue = inputValue / 100;
+    tipAmount = parseFloat(customValue);
+    calculate();
+})
 
-// Get the total cost per person
-function perPerson() {}
+bill.addEventListener('change', (e) => {
+    let billValue = e.target.value.trim();
+    // Check if the input value is valid
+    billValue = billValue.replace(/[^0-9.]+/g, "");
+    billValue = billValue || "";
+    bill.value = billValue;
+    billAmount = parseFloat(billValue).toFixed(2);
+    calculate();
+});
 
-// Reset all the numbers
-function reset() {}
+peopleNum.addEventListener('input', (e) => {
+    const inputValue = e.target.value;
+    isValidInputValue(inputValue);
 
+    peopleNum.value = inputValue;
+    numOfPeople = parseInt(inputValue, 10);
+    calculate();
+});
 
-// Render the result of tips
-// bill.addEventListener('input', e => {
-//     e.preventDefault();
+resetBtn.addEventListener('click', () => {
+    billAmount = 0;
+    tipAmount = 0;
+    numOfPeople = 1;
+    bill.value = 0;
+    peopleNum.value = 0;
+    personTotalResult.innerText = '$0.00';
+    tipTotalResult.innerText = '$0.00';
 
-//     // const tipResult = tipAmount();
-
-//     // tipTotal.innerText = `$${bill.value}.00`;
-// });
-
-// Render the result of total amount per person
+    resetBtn.classList.remove('active');
+});
